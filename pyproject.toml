@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "praxis-homeschool"
+version = "0.1.0"
+description = "SMF Praxis Homeschool vertical — parent-operated household education pack (private, commercial)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Commercial — SMF Works. All rights reserved." }
+authors = [{ name = "SMF Works", email = "liam@smfworks.com" }]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: Other/Proprietary License",
+    "Private :: Do Not Upload",
+]
+dependencies = [
+    "praxis-agent>=0.28.33",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff", "mypy"]
+
+[tool.setuptools.packages.find]
+include = ["hybridagent_praxis_homeschool*"]
+
+[tool.setuptools.package-data]
+"hybridagent_praxis_homeschool" = [
+    "packs/*/pack.json",
+    "packs/*/knowledge.md",
+    "web/*.css",
+    "web/*.js",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
