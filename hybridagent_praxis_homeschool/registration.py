@@ -2,12 +2,19 @@
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+from typing import Any
+
 from hybridagent.broker import RiskClass
 from hybridagent.evals import EvalCase
 from hybridagent.verticals.registry import (
     VerticalSpec,
     register_vertical_eval_cases,
+    register_vertical_pack_root,
+    register_vertical_routes,
     register_vertical_spec,
+    register_vertical_web_root,
 )
 
 
@@ -17,7 +24,7 @@ _HOMESCHOOL_SPEC = VerticalSpec(
     compliance_mode="enforced",
     autonomous={RiskClass.READ, RiskClass.DRAFT},
     held={RiskClass.SEND, RiskClass.DESTRUCTIVE},
-    version="0.1.0",
+    version="0.1.1",
 )
 
 
@@ -140,6 +147,31 @@ def _manual_cases() -> list[EvalCase]:
     ]
 
 
+def _handle_routes(handler: Any) -> bool:
+    path = str(handler.path).split("?", 1)[0]
+    if handler.command == "GET" and path == "/api/homeschool":
+        if not handler._require_auth():
+            return True
+        handler._json_response(handler.daemon.homeschool_status())
+        return True
+    if handler.command == "POST" and path == "/api/homeschool/context":
+        if not handler._require_same_origin_json():
+            return True
+        payload = json.loads(
+            handler._read_body(max_bytes=64 * 1024).decode() or "{}"
+        )
+        if not isinstance(payload, dict):
+            handler._json_response({"error": "JSON object required"}, status=400)
+            return True
+        result = handler.daemon.homeschool_set_context(payload)
+        handler._json_response(result, status=400 if result.get("blocked") else 200)
+        return True
+    return False
+
+
 def register() -> None:
     register_vertical_spec(_HOMESCHOOL_SPEC)
     register_vertical_eval_cases(_manual_cases)
+    register_vertical_routes(_handle_routes)
+    register_vertical_pack_root(Path(__file__).resolve().parent / "packs")
+    register_vertical_web_root(Path(__file__).resolve().parent / "web")

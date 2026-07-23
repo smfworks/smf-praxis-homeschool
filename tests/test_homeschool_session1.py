@@ -6,24 +6,24 @@ from datetime import datetime
 
 import pytest
 
-from hybridagent.homeschool_compliance import (
+from hybridagent_praxis_homeschool.modules.homeschool_compliance import (
     FilingDraft,
     FilingLedger,
     InstructionEntry,
     InstructionLedger,
     build_compliance_calendar,
 )
-from hybridagent.homeschool_jurisdictions import (
+from hybridagent_praxis_homeschool.modules.homeschool_jurisdictions import (
     get_homeschool_profile,
     profile_for_route,
     registered_homeschool_states,
 )
-from hybridagent.homeschool_route import (
+from hybridagent_praxis_homeschool.modules.homeschool_route import (
     RouteSelection,
     evaluate_route,
     migrate_route,
 )
-from hybridagent.household_education_privacy import (
+from hybridagent_praxis_homeschool.modules.household_education_privacy import (
     AccessRequest,
     DisclosureEvent,
     HouseholdDisclosureLedger,

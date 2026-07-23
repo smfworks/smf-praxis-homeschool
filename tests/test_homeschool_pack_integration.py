@@ -13,13 +13,13 @@ from hybridagent import config as cfg
 from hybridagent import pack
 from hybridagent.broker import GovernanceBroker, GovernancePolicy, RiskClass, Verdict
 from hybridagent.daemon import Daemon, _StatusHandler
-from hybridagent.homeschool_compliance import build_compliance_calendar
-from hybridagent.homeschool_jurisdictions import (
+from hybridagent_praxis_homeschool.modules.homeschool_compliance import build_compliance_calendar
+from hybridagent_praxis_homeschool.modules.homeschool_jurisdictions import (
     get_homeschool_profile,
     profile_for_route,
     registered_homeschool_states,
 )
-from hybridagent.homeschool_route import RouteSelection
+from hybridagent_praxis_homeschool.modules.homeschool_route import RouteSelection
 from hybridagent.llm import LLMClient
 from hybridagent.tools import default_registry
 
@@ -35,7 +35,7 @@ def test_pack_manifest_is_governed_and_complete(tmp_path, monkeypatch):
     activate(tmp_path, monkeypatch)
     hs = pack.active()
     assert hs is not None
-    assert hs.name == "homeschool" and hs.version == "1.0.0"
+    assert hs.name == "homeschool" and hs.version == "0.1.1"
     assert hs.compliance_mode == "enforced"
     assert set(hs.risk_policy["autonomousRisks"]) == {"read", "draft"}
     assert set(hs.risk_policy["dualApprovalRisks"]) == {"send", "destructive"}
@@ -57,7 +57,7 @@ def test_pack_manifest_is_governed_and_complete(tmp_path, monkeypatch):
 
 
 def test_knowledge_covers_all_states_and_hard_boundaries():
-    knowledge = (Path(__file__).parents[1] / "hybridagent" / "packs" /
+    knowledge = (Path(__file__).parents[1] / "hybridagent_praxis_homeschool" / "packs" /
                  "homeschool" / "knowledge.md").read_text(encoding="utf-8")
     for state in STATES:
         assert f"### {state} " in knowledge
@@ -187,7 +187,10 @@ def test_command_deck_requires_literal_parent_and_commencement_confirmation(tmp_
 
 
 def test_command_deck_ui_collects_commencement_and_event_driven_dates():
-    script = (Path(__file__).parents[1] / "hybridagent/web/homeschool.js").read_text()
+    script = (
+        Path(__file__).parents[1]
+        / "hybridagent_praxis_homeschool/web/homeschool.js"
+    ).read_text(encoding="utf-8")
     assert "'hs-commencement'" in script
     assert "'hs-materials-received'" in script
     assert "'hs-reporting-dates'" in script

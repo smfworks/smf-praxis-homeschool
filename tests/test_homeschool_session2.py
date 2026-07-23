@@ -7,7 +7,7 @@ from datetime import date, datetime
 
 import pytest
 
-from hybridagent.home_tutor import (
+from hybridagent_praxis_homeschool.modules.home_tutor import (
     AuthorshipCheck,
     AuthorshipLedger,
     TutorRequest,
@@ -15,7 +15,7 @@ from hybridagent.home_tutor import (
     check_authorship,
     safety_escalation,
 )
-from hybridagent.homeschool_assessment import (
+from hybridagent_praxis_homeschool.modules.homeschool_assessment import (
     AssessmentPlan,
     AssessmentResult,
     AssessmentResultLedger,
@@ -30,21 +30,21 @@ from hybridagent.homeschool_assessment import (
     evaluate_assessment,
     import_result,
 )
-from hybridagent.homeschool_jurisdictions import get_homeschool_profile
-from hybridagent.homeschool_learning_plan import (
+from hybridagent_praxis_homeschool.modules.homeschool_jurisdictions import get_homeschool_profile
+from hybridagent_praxis_homeschool.modules.homeschool_learning_plan import (
     LearnerPlan,
     LearningActivity,
     build_learning_program,
     differentiate_objective,
 )
-from hybridagent.homeschool_portfolio import (
+from hybridagent_praxis_homeschool.modules.homeschool_portfolio import (
     ParentArtifactAttestation,
     PortfolioArtifact,
     PortfolioLedger,
     artifact_attestation_hash,
     portfolio_artifact_manifest_hash,
 )
-from hybridagent.homeschool_support import (
+from hybridagent_praxis_homeschool.modules.homeschool_support import (
     HomeschoolSupportPlan,
     ParentSupportAttestation,
     ReentryEvidenceLedger,

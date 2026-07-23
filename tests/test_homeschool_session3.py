@@ -7,13 +7,13 @@ from decimal import Decimal
 
 import pytest
 
-from hybridagent import homeschool_transcript as transcript_module
-from hybridagent.homeschool_collaboration import (
+from hybridagent_praxis_homeschool.modules import homeschool_transcript as transcript_module
+from hybridagent_praxis_homeschool.modules.homeschool_collaboration import (
     CollaborationGrant,
     CollaborationLedger,
     validate_grant,
 )
-from hybridagent.homeschool_funding import (
+from hybridagent_praxis_homeschool.modules.homeschool_funding import (
     Expense,
     FundingEligibility,
     FundingLedger,
@@ -24,7 +24,7 @@ from hybridagent.homeschool_funding import (
     reimbursement_packet_hash,
     submit_reimbursement,
 )
-from hybridagent.homeschool_transcript import (
+from hybridagent_praxis_homeschool.modules.homeschool_transcript import (
     CourseRecord,
     DiplomaPacket,
     TranscriptEvidence,
