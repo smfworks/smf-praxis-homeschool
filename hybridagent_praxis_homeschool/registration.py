@@ -17,7 +17,6 @@ from hybridagent.verticals.registry import (
     register_vertical_web_root,
 )
 
-
 _HOMESCHOOL_SPEC = VerticalSpec(
     name="homeschool",
     persona_keyword="homeschool",
@@ -90,8 +89,8 @@ def _collaboration_case():
 
 def _transcript_case():
     def run() -> tuple[bool, str]:
-        from decimal import Decimal
         import hashlib
+        from decimal import Decimal
 
         from .modules.homeschool_transcript import (
             CourseRecord,
@@ -113,7 +112,7 @@ def _transcript_case():
             transcript_id="t1", learner_id="l1", state="NJ",
             policy=policy,
             courses=(CourseRecord(
-                "c1", "l1", "Algebra I", "2026", Decimal("1"), Decimal("4"),
+                "c1", "l1", "Algebra I", "2026", Decimal(1), Decimal(4),
                 "standard", ("work-1",), "Algebra foundations", True,
             ),),
             parent_approved=True, evidence_ledger=evidence,

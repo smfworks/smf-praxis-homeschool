@@ -2,10 +2,11 @@
 from __future__ import annotations
 
 import time
+from collections.abc import Callable
 from dataclasses import dataclass, replace
 from datetime import datetime, timezone
 from math import isfinite
-from typing import Callable, Literal
+from typing import Literal
 
 CollaboratorRole = Literal["co_parent", "tutor", "co_op_instructor", "evaluator", "umbrella_admin"]
 

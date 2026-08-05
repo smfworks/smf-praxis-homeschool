@@ -31,6 +31,6 @@ from .registration import register
 
 __version__ = "0.1.1"
 
-__all__ = ["register", "__version__"]
+__all__ = ["__version__", "register"]
 
 register()

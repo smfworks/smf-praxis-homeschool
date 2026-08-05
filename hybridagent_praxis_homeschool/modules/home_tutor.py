@@ -201,31 +201,31 @@ def safety_escalation(text: str) -> tuple[bool, str]:
         r"\b(?:am |i'm )?(?:cutting|harming|hurting) my (?:wrist|wrists|arm|arms)\b",
     )
     violence = (
-        r"\b(?:will|want to|plan to|going to)? ?(?:kill|shoot|stab|hurt|seriously hurt) "
-        r"(?:someone|him|her|them|my|the|a)\b",
+        (r"\b(?:will|want to|plan to|going to)? ?(?:kill|shoot|stab|hurt|seriously hurt) "
+        r"(?:someone|him|her|them|my|the|a)\b"),
         r"\bbring(?:ing)? (?:a )?(?:gun|knife|weapon|bomb)\b",
     )
     home_abuse = (
         r"\bunsafe at home\b", r"\babuse[sd]?\b", r"\bhurt(?:s|ing)? me\b",
         r"\b(?:hits|beats|chokes|molests) me\b", r"\b(?:molested|raped) me\b",
-        r"\b(?:hit|hits|hitting|punch(?:ed|es|ing)?|beat(?:s|ing)?|chok(?:ed|es|ing)|"
-        r"slap(?:ped|s|ping)?|kick(?:ed|s|ing)?) me\b",
-        r"\b(?:threatened|threatens|threatening|plans?|wants?|going|will) "
-        r"(?:to )?(?:hurt|kill|shoot|stab) me\b",
+        (r"\b(?:hit|hits|hitting|punch(?:ed|es|ing)?|beat(?:s|ing)?|chok(?:ed|es|ing)|"
+        r"slap(?:ped|s|ping)?|kick(?:ed|s|ing)?) me\b"),
+        (r"\b(?:threatened|threatens|threatening|plans?|wants?|going|will) "
+        r"(?:to )?(?:hurt|kill|shoot|stab) me\b"),
         r"\b(?:touch|touches|touched) me (?:there|sexually|inappropriately)\b",
         r"\bi (?:was|am being) touched (?:sexually|inappropriately)\b",
         r"\b(?:forced|forces|forcing|threatened|threatens) me\b",
-        r"\b(?:my )?(?:dad|mom|father|mother|parent|guardian|caregiver|family member) "
-        r"(?:hit|hits|punched|punches|beat|beats|choked|chokes) me\b",
-        r"\b(?:my )?(?:step(?:dad|mom|father|mother|parent)|foster (?:father|mother|parent)|"
+        (r"\b(?:my )?(?:dad|mom|father|mother|parent|guardian|caregiver|family member) "
+        r"(?:hit|hits|punched|punches|beat|beats|choked|chokes) me\b"),
+        (r"\b(?:my )?(?:step(?:dad|mom|father|mother|parent)|foster (?:father|mother|parent)|"
         r"dad|mom|father|mother|parent|guardian|caregiver|family member) "
         r"(?:(?:says?|said) (?:he|she|they) (?:will|would|might) )?"
         r"(?:hit|hits|hitting|punch(?:ed|es|ing)?|beat(?:s|ing)?|chok(?:ed|es|ing)|"
-        r"slap(?:ped|s|ping)?|kick(?:ed|s|ing)?|kill(?:s|ing)?) me\b",
-        r"\b(?:someone|somebody|a person) at home (?:is )?"
-        r"(?:hit(?:s|ting)?|beat(?:s|ing)?|slap(?:s|ping)?|kick(?:s|ing)?) me\b",
-        r"\b(?:my )?(?:dad|mom|father|mother|parent|guardian|caregiver|family member) "
-        r"(?:is )?(?:touching|touches|touched) me(?: inappropriately| sexually)?\b",
+        r"slap(?:ped|s|ping)?|kick(?:ed|s|ing)?|kill(?:s|ing)?) me\b"),
+        (r"\b(?:someone|somebody|a person) at home (?:is )?"
+        r"(?:hit(?:s|ting)?|beat(?:s|ing)?|slap(?:s|ping)?|kick(?:s|ing)?) me\b"),
+        (r"\b(?:my )?(?:dad|mom|father|mother|parent|guardian|caregiver|family member) "
+        r"(?:is )?(?:touching|touches|touched) me(?: inappropriately| sexually)?\b"),
         r"\bafraid of (?:my )?(?:parent|guardian|caregiver|family)\b",
     )
     household_danger = any(re.search(pattern, lower) for pattern in home_abuse)

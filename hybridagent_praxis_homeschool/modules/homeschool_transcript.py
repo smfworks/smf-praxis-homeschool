@@ -158,7 +158,7 @@ def validate_course(course: CourseRecord) -> tuple[str, ...]:
         findings.append("Course level must be standard, honors, ap, or dual_enrollment.")
     credits = _decimal(course.credits, "credits")
     points = _decimal(course.grade_points, "grade_points")
-    if credits <= 0 or credits > Decimal("10"):
+    if credits <= 0 or credits > Decimal(10):
         findings.append("Credits must be in (0, 10].")
     if points < 0 or points > 4:
         findings.append("Unweighted grade points must be in [0, 4].")
@@ -208,15 +208,15 @@ def _evidence_payload(evidence: TranscriptEvidence) -> dict[str, object]:
 
 
 def _calculate_totals(courses: tuple[CourseRecord, ...], policy: TranscriptPolicy) -> tuple[Decimal, Decimal, Decimal]:
-    total = sum((_decimal(course.credits, "credits") for course in courses), Decimal("0"))
+    total = sum((_decimal(course.credits, "credits") for course in courses), Decimal(0))
     if total <= 0:
         raise ValueError("transcript requires positive total credits")
     unweighted_total = sum(
         (_decimal(course.credits, "credits") * _decimal(course.grade_points, "grade_points")
-         for course in courses), Decimal("0"))
-    weighted_total = Decimal("0")
+         for course in courses), Decimal(0))
+    weighted_total = Decimal(0)
     for course in courses:
-        bonus = Decimal("0")
+        bonus = Decimal(0)
         if course.level == "honors":
             bonus = _decimal(policy.honors_bonus, "honors_bonus")
         elif course.level in {"ap", "dual_enrollment"}:
@@ -255,9 +255,9 @@ def _validate_policy(policy: TranscriptPolicy) -> None:
     honors_bonus = _decimal(policy.honors_bonus, "honors_bonus")
     ap_dual_bonus = _decimal(policy.ap_dual_bonus, "ap_dual_bonus")
     required_credits = _decimal(policy.required_credits, "required_credits")
-    if not Decimal("0") <= honors_bonus <= Decimal("2"):
+    if not Decimal(0) <= honors_bonus <= Decimal(2):
         raise ValueError("honors_bonus must be in [0, 2]")
-    if not Decimal("0") <= ap_dual_bonus <= Decimal("2"):
+    if not Decimal(0) <= ap_dual_bonus <= Decimal(2):
         raise ValueError("ap_dual_bonus must be in [0, 2]")
     if required_credits <= 0:
         raise ValueError("required_credits must be positive")
@@ -404,7 +404,7 @@ def validate_diploma(packet: DiplomaPacket, *, transcript: Transcript,
     except (KeyError, ValueError) as exc:
         findings.append(f"Transcript manifest cannot be verified: {exc}")
         expected_hash = ""
-        recomputed_total = recomputed_unweighted = recomputed_weighted = Decimal("-1")
+        recomputed_total = recomputed_unweighted = recomputed_weighted = Decimal(-1)
     current_policy_hash = transcript_policy_hash(policy)
     if (packet.transcript_id != transcript.transcript_id
             or packet.transcript_hash != transcript.record_hash

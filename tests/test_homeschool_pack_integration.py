@@ -8,20 +8,22 @@ import urllib.request
 from pathlib import Path
 
 import pytest
-
 from hybridagent import config as cfg
 from hybridagent import pack
 from hybridagent.broker import GovernanceBroker, GovernancePolicy, RiskClass, Verdict
 from hybridagent.daemon import Daemon, _StatusHandler
-from hybridagent_praxis_homeschool.modules.homeschool_compliance import build_compliance_calendar
+from hybridagent.llm import LLMClient
+from hybridagent.tools import default_registry
+
+from hybridagent_praxis_homeschool.modules.homeschool_compliance import (
+    build_compliance_calendar,
+)
 from hybridagent_praxis_homeschool.modules.homeschool_jurisdictions import (
     get_homeschool_profile,
     profile_for_route,
     registered_homeschool_states,
 )
 from hybridagent_praxis_homeschool.modules.homeschool_route import RouteSelection
-from hybridagent.llm import LLMClient
-from hybridagent.tools import default_registry
 
 STATES = ("FL", "GA", "SC", "TN", "VA", "WV", "MD", "PA", "OH", "NJ", "NY", "CT", "MA")
 

@@ -30,7 +30,9 @@ from hybridagent_praxis_homeschool.modules.homeschool_assessment import (
     evaluate_assessment,
     import_result,
 )
-from hybridagent_praxis_homeschool.modules.homeschool_jurisdictions import get_homeschool_profile
+from hybridagent_praxis_homeschool.modules.homeschool_jurisdictions import (
+    get_homeschool_profile,
+)
 from hybridagent_praxis_homeschool.modules.homeschool_learning_plan import (
     LearnerPlan,
     LearningActivity,

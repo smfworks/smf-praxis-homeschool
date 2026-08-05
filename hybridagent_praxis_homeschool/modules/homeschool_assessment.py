@@ -4,10 +4,10 @@ from __future__ import annotations
 import hashlib
 import json
 import time
+from collections.abc import Callable
 from dataclasses import dataclass, replace
 from datetime import date, datetime, timedelta, timezone
 from math import isfinite
-from typing import Callable
 
 from .homeschool_jurisdictions import get_homeschool_profile, profile_for_route
 from .homeschool_portfolio import PortfolioLedger

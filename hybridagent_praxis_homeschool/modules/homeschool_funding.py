@@ -347,7 +347,7 @@ class FundingLedger:
         return decision
 
     def balance(self, *, include_uncertain: bool = False) -> Decimal:
-        used = Decimal("0")
+        used = Decimal(0)
         for expense in self._expenses.values():
             decision = classify_expense(
                 self.program, expense, eligibility=self.eligibility, now=self._now,
@@ -355,7 +355,7 @@ class FundingLedger:
             if decision.eligibility == "eligible" or (
                     include_uncertain and decision.eligibility == "uncertain"):
                 used += _money(expense.amount)
-        return max(Decimal("0"), self.award_amount - used).quantize(Decimal("0.01"))
+        return max(Decimal(0), self.award_amount - used).quantize(Decimal("0.01"))
 
     @staticmethod
     def _manifest_entry(expense: Expense) -> ReimbursementExpense:
@@ -368,7 +368,7 @@ class FundingLedger:
         except KeyError as exc:
             raise ValueError("reimbursement packet references an unknown expense") from exc
         expected_manifest = tuple(self._manifest_entry(item) for item in expenses)
-        expected_total = sum((item.amount for item in expected_manifest), Decimal("0"))
+        expected_total = sum((item.amount for item in expected_manifest), Decimal(0))
         if (packet.packet_id != expected_id
                 or not packet.expense_ids
                 or len(set(packet.expense_ids)) != len(packet.expense_ids)
@@ -421,9 +421,9 @@ class FundingLedger:
             if decision.eligibility != "eligible":
                 raise ValueError("only source-verified eligible expenses enter a packet")
             selected.append(expense)
-        total = sum((_money(x.amount) for x in selected), Decimal("0"))
+        total = sum((_money(x.amount) for x in selected), Decimal(0))
         committed = sum((packet.total for packet in self._packets.values()
-                         if packet.status != "cancelled"), Decimal("0"))
+                         if packet.status != "cancelled"), Decimal(0))
         if committed + total > self.award_amount:
             raise ValueError("reimbursement packets exceed the award amount")
         packet = ReimbursementPacket(

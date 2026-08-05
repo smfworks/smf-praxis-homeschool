@@ -7,7 +7,9 @@ from decimal import Decimal
 
 import pytest
 
-from hybridagent_praxis_homeschool.modules import homeschool_transcript as transcript_module
+from hybridagent_praxis_homeschool.modules import (
+    homeschool_transcript as transcript_module,
+)
 from hybridagent_praxis_homeschool.modules.homeschool_collaboration import (
     CollaborationGrant,
     CollaborationLedger,
@@ -190,7 +192,7 @@ def policy() -> TranscriptPolicy:
 
 def course(identifier: str = "c1", **kwargs: object) -> CourseRecord:
     suffix = "1" if identifier == "c1" else "2"
-    values = {
+    values: dict[str, object] = {
         "course_id": identifier, "learner_id": "l1",
         "title": "Algebra I" if identifier == "c1" else "Biology Honors",
         "school_year": "2026", "credits": Decimal("1.0"),
@@ -231,14 +233,14 @@ def test_transcript_rejects_bool_nan_out_of_range_and_unknown_level():
         validate_course(course(credits=True))
     with pytest.raises(ValueError, match="finite"):
         validate_course(course(grade_points=Decimal("NaN")))
-    assert any("grade points" in x.lower() for x in validate_course(course(grade_points=Decimal("5"))))
+    assert any("grade points" in x.lower() for x in validate_course(course(grade_points=Decimal(5))))
     assert any("course level" in x.lower() for x in validate_course(course(level="invented")))
 
 
 def test_transcript_gpa_is_reproducible_weighted_and_unweighted():
     transcript = issue_transcript(
-        course("c1", grade_points=Decimal("4"), level="standard"),
-        course("c2", grade_points=Decimal("3"), level="honors"),
+        course("c1", grade_points=Decimal(4), level="standard"),
+        course("c2", grade_points=Decimal(3), level="honors"),
     )
     assert transcript.total_credits == Decimal("2.000")
     assert transcript.unweighted_gpa == Decimal("3.500")
@@ -276,7 +278,7 @@ def test_transcript_binds_evidence_and_blocks_duplicate_credit():
         issue_transcript(course("c1"), course("c2", title=" algebra  i "))
     foreign = evidence_ledger()
     foreign_content = b"foreign-work"
-    foreign._records["work-1"] = TranscriptEvidence(  # noqa: SLF001 - adversarial fixture
+    foreign._records["work-1"] = TranscriptEvidence(
         "work-1", "l2", "2026", "portfolio",
         "sha256:" + hashlib.sha256(foreign_content).hexdigest(),
     )
@@ -331,7 +333,7 @@ def test_diploma_is_bound_to_matching_transcript_policy_and_threshold():
         claims_state_issued=True, claims_accredited=True,
     )
     findings = validate_diploma(wrong, transcript=transcript, policy=replace(
-        policy(), required_credits=Decimal("2"),
+        policy(), required_credits=Decimal(2),
     ))
     assert any("state-issued" in item for item in findings)
     assert any("accreditation" in item for item in findings)
@@ -345,7 +347,7 @@ def test_diploma_is_bound_to_matching_transcript_policy_and_threshold():
         replace(packet, state=""), transcript=transcript,
         policy=policy(),
     )
-    forged = replace(transcript, courses=(), total_credits=Decimal("99"))
+    forged = replace(transcript, courses=(), total_credits=Decimal(99))
     assert validate_diploma(packet, transcript=forged, policy=policy())
     changed_evidence = replace(
         transcript.evidence_manifest[0], content_hash=VALID_HASH_D,
@@ -557,8 +559,8 @@ def test_uncertain_expense_never_enters_reimbursement_packet():
 
 def test_funding_packets_cannot_overcommit_reuse_or_replay_receipts():
     ledger = funding_ledger(award="150")
-    ledger.append(expense("e1", amount=Decimal("100")), receipt_content=receipt_content("e1"))
-    ledger.append(expense("e2", amount=Decimal("100")), receipt_content=receipt_content("e2"))
+    ledger.append(expense("e1", amount=Decimal(100)), receipt_content=receipt_content("e1"))
+    ledger.append(expense("e2", amount=Decimal(100)), receipt_content=receipt_content("e2"))
     with pytest.raises(ValueError, match="receipt hash"):
         ledger.append(
             expense("e3", receipt_hash=expense("e1").receipt_hash),
