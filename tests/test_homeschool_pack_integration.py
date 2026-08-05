@@ -37,7 +37,7 @@ def test_pack_manifest_is_governed_and_complete(tmp_path, monkeypatch):
     activate(tmp_path, monkeypatch)
     hs = pack.active()
     assert hs is not None
-    assert hs.name == "homeschool" and hs.version == "0.1.1"
+    assert hs.name == "homeschool" and hs.version == "0.1.2"
     assert hs.compliance_mode == "enforced"
     assert set(hs.risk_policy["autonomousRisks"]) == {"read", "draft"}
     assert set(hs.risk_policy["dualApprovalRisks"]) == {"send", "destructive"}
