@@ -1,6 +1,8 @@
 # Praxis Homeschool
 
-Private homeschool vertical for Praxis. It packages jurisdiction profiles, route selection, compliance-calendar generation, portfolio and transcript workflows, household privacy controls, and Command Deck assets.
+SMF Praxis homeschool compliance pack. It packages jurisdiction profiles, route selection, compliance-calendar generation, portfolio and transcript workflows, household privacy controls, and Command Deck assets.
+
+This pack is informational tooling and not legal advice. Families should verify their state's current rules.
 
 ## Installation
 
@@ -16,4 +18,6 @@ The distribution registers itself through the `praxis.verticals` entry-point gro
 
 Praxis may prepare plans, calendars, and draft records. Parent attestations, official submissions, external communications, and destructive actions remain held for human approval.
 
-Proprietary software. See `LICENSE`.
+## License
+
+This pack is MIT-licensed. See `LICENSE`.

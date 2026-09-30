@@ -1,6 +1,6 @@
 """SMF Praxis Homeschool vertical — registration module.
 
-This package is the private paid Homeschool vertical build for Praxis.
+This package is the SMF Praxis homeschool compliance pack.
 It depends on the open-core ``smf-praxis`` base and registers the
 homeschool vertical's spec and eval cases with the base's
 :mod:`hybridagent.verticals.registry` on import.
@@ -8,7 +8,7 @@ homeschool vertical's spec and eval cases with the base's
 Installation::
 
     pip install praxis-agent            # open-core base (public, MIT)
-    pip install praxis-homeschool       # this vertical (private, commercial)
+    pip install praxis-homeschool       # SMF Praxis homeschool compliance pack
 
 Activating the vertical lights up:
 
